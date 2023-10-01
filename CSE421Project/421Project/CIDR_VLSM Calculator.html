@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://subnettingpractice.com/vlsm.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>CIDR/VLSM Calculator</title>
+	<meta name="description" content="Easy but powerful CIDR/VLSM calculator for finding IP addresses, number of hosts, network masks, usable range, etc. Plan a whole network using this one tool ">
+	<meta name="keywords" content="VLSM, CIDR, Calculator, subnet, variable-length, mask, calculate, plan, network, slash">
+<link rel="canonical" href="https://subnettingpractice.com/vlsm.html">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		input{width:8em;
+			padding:0 1em 0 0;
+		}
+		.column {
+ 			display: inline-block;
+  			width: 8em;
+			padding:0 1em 0 0;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="./CIDR_VLSM Calculator_files/header_footer.css">
+    </head>
+    <body>
+<span id="titlename"><a href="https://subnettingpractice.com/index.html">SubnettingPractice.com</a></span> The most extensive subnetting site on the web!
+                <ul id="nav">
+                        <li><a href="https://subnettingpractice.com/index.html">Practice Questions</a></li>
+                        <li><a href="https://subnettingpractice.com/ipv6.html">IPv6 Subnetting</a></li>
+                        <li><a href="https://subnettingpractice.com/subnets.html">Basic Subnetting</a></li>
+                        <li><a href="https://subnettingpractice.com/ipv6_subnetting.html">IPv6 Calculator</a></li>
+                        <li><a href="https://subnettingpractice.com/binary.html">Binary Practice</a></li>
+                        <li><a href="https://subnettingpractice.com/calc.html">Subnetting Calculator</a></li>
+                        <li><a href="https://subnettingpractice.com/vlsm.html">VLSM Calculator</a></li>
+                </ul>
+
+<h1>VLSM/CIDR Calculator</h1>
+
+<div style="width: 100%; padding-bottom: 16px;">
+<script async="" src="./CIDR_VLSM Calculator_files/analytics.js.download"></script><script async="" src="./CIDR_VLSM Calculator_files/f.txt"></script>
+<!-- subnetting-header-responsive -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5214460626967121" data-ad-slot="4650969699" data-ad-format="horizontal"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<form onsubmit="return false;">
+	How many subnets do you need to create?<br>
+	<input type="number" id="input_num_of_subnets" min="2" max="999" maxlength="3" placeholder="Subnets">
+	<button onclick="change_subnet_number();">Change</button><span id="nets" style="display:none;">7</span>
+</form>
+<form onsubmit="return false;" _lpchecked="1">
+	<p>What is the network IP prefix in slash notation (i.e. 192.168.1.0/24)?<br>
+	<input type="text" id="input_network" value="192.168.1.0/24"><span id="not_valid_ip" style="background-color: yellow;"></span></p>
+	
+	<p id="subnet_pargraph"><span class="column">Subnet Names:</span> <span class="column">Number of hosts:</span><br><input type="text" id="name1" value="Host1"> <input type="text" id="hosts1" tabindex="1" value=""><br><input type="text" id="name2" value="Host2"> <input type="text" id="hosts2" tabindex="2" value=""><br><input type="text" id="name3" value="Host3"> <input type="text" id="hosts3" tabindex="3" value=""><br><input type="text" id="name4" value="Host4"> <input type="text" id="hosts4" tabindex="4" value=""><br><input type="text" id="name5" value="Host5"> <input type="text" id="hosts5" tabindex="5" value=""><br><input type="text" id="name6" value="Host6"> <input type="text" id="hosts6" tabindex="6" value=""><br><input type="text" id="name7" value="Host7"> <input type="text" id="hosts7" tabindex="7" value=""><br></p>
+
+	<button onclick="vlsm();">Submit</button>
+	<button onclick="clear_form();">Clear</button>
+</form>
+<p id="ans"><p>The network 10.30.0.0/16 has 65534 hosts.<br>Your subnets need 12336 hosts.</p><table border="1"><tbody><tr><td>Name</td><td>Hosts Needed</td><td>Hosts Available</td><td>Unused Hosts</td><td>Network Address</td><td>Slash</td><td>Mask</td><td>Usable Range</td><td>Broadcast</td><td>Wildcard</td></tr><tr><td>Host7</td><td>10000</td><td>16382</td><td>6382</td><td>10.30.0.0</td><td>/18</td><td>255.255.192.0</td><td>10.30.0.1 - 10.30.63.254</td><td>10.30.63.255</td><td>0.0.63.255</td></tr><tr><td>Host4</td><td>1024</td><td>2046</td><td>1022</td><td>10.30.64.0</td><td>/21</td><td>255.255.248.0</td><td>10.30.64.1 - 10.30.71.254</td><td>10.30.71.255</td><td>0.0.7.255</td></tr><tr><td>Host2</td><td>600</td><td>1022</td><td>422</td><td>10.30.72.0</td><td>/22</td><td>255.255.252.0</td><td>10.30.72.1 - 10.30.75.254</td><td>10.30.75.255</td><td>0.0.3.255</td></tr><tr><td>Host1</td><td>300</td><td>510</td><td>210</td><td>10.30.76.0</td><td>/23</td><td>255.255.254.0</td><td>10.30.76.1 - 10.30.77.254</td><td>10.30.77.255</td><td>0.0.1.255</td></tr><tr><td>Host5</td><td>250</td><td>254</td><td>4</td><td>10.30.78.0</td><td>/24</td><td>255.255.255.0</td><td>10.30.78.1 - 10.30.78.254</td><td>10.30.78.255</td><td>0.0.0.255</td></tr><tr><td>Host3</td><td>150</td><td>254</td><td>104</td><td>10.30.79.0</td><td>/24</td><td>255.255.255.0</td><td>10.30.79.1 - 10.30.79.254</td><td>10.30.79.255</td><td>0.0.0.255</td></tr><tr><td>Host6</td><td>12</td><td>14</td><td>2</td><td>10.30.80.0</td><td>/28</td><td>255.255.255.240</td><td>10.30.80.1 - 10.30.80.14</td><td>10.30.80.15</td><td>0.0.0.15</td></tr></tbody></table></p>
+Using CIDR/VLSM this calculator allows you to quickly figure out how to most efficiently setup your network. If you are using IPv6 you can use our <a href="https://subnettingpractice.com/ipv6_subnetting.html">IPv6 subnetting calculator</a> to efficiently setup those addresses.
+<h4>Variable Length Subnet Masking Explained</h4>
+<p>Variable length subnet masking (VLSM) is a more efficient way of subnetting a network. When you perform classful subnetting, all the subnets must use the same subnet mask, forcing them to each use the same number of hosts. This can lead to wasted IP space. </p>
+
+<div style="float: left; padding-right: 10px;">
+<script async="" src="./CIDR_VLSM Calculator_files/f.txt"></script>
+<!-- large rect -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-5214460626967121" data-ad-slot="8794867296"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<p>Say for example you need three subnets in a /24 network. Say you need 120 hosts in one subnet, and only 8 in the remaining two subnets. Well, with traditional subnetting, all subnets  must be the same size. The subnet which needs 120 hosts has to have a subnet mask of 255.255.255.128. No smaller subnet will allow for 120 hosts. This means the other two subnets must also have the same subnet mask, 255.255.255.128, but three such subnets do not fit into a single /24! Also, you only need 8 hosts for the second two subnets, but with a mask of 255.255.255.128 you have 126 usable hosts. that is 118 unused IP addresses. What a waste!</p>
+<p>Classless Inter-Domain Routing (CIDR) has replaced the classful network design. Subnets no longer have to all be the same size. Network architects can now create multiple subnets all of which vary in size and subnet mask.</p>
+<p>If you were to use CIRD/VLSM, you could easily fit all three subnets into a single /24 network. The subnet which has 120 hosts would still have a subnet mask of 255.255.255.128, but now the remaining two subnets could have a subnet mask of 255.255.255.240. These would each allow 14 usable hosts, and still leave a chunk of the original /24 to be used in the future. A much more efficient use of IP space.</p>
+<p> VLSM allows you to use different subnet masks, allowing for a more exact number of hosts to be used in each subnet. To perform VLSM subnetting, starting with the largest number of hosts needed in a single subnet, find the smallest subnet which will have that many hosts. Then do the same for the subnet needing the second largest number of hosts, all the way down to the smallest number of hosts needed.</p>
+<p>One common mistake in subnetting is to attempt to create something such as a 172.16.1.0/23 network. A /23 can never have a '1' in the third octet. This is because a /23 uses the first 7 bits of the third octet for the network, and the last bit for hosts. Ignoring the last bit (which is used for hosts) we can only have 172.16.0.0/23 or 172.16.2.0/23, but no /23 in between. This is an error other VLSM calculators seem to make. If in doubt, try converting to <a href="https://subnettingpractice.com/binary.html">binary</a>. Another example of this may be attempting to have a 192.168.1.1/30 network. For the same
+reason as before, we can only have 192.168.1.0/30, with the next possible network being 192.168.1.4/30.</p>
+
+<div style="width: 100%;">
+<script async="" src="./CIDR_VLSM Calculator_files/f.txt"></script>
+<!-- Responsive link -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5214460626967121" data-ad-slot="1710849691" data-ad-format="link"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<ul id="foot">
+                        <li><a href="https://subnettingpractice.com/howto.html">How to Subnet</a></li>
+                        <li><a href="https://subnettingpractice.com/howtoipv6.html">How to Subnet IPv6</a></li>
+                        <li><a href="https://subnettingpractice.com/cheatsheet.html">Subnetting Cheatsheet</a></li>
+                        <li><a href="https://subnettingpractice.com/binary_calc.html">Binary/Hex Calculator</a></li>
+                        <li><a href="https://subnettingpractice.com/ethernet_wiring.html">Ethernet Wiring Practice</a></li>
+                        <li><a href="https://subnettingpractice.com/ipv6_is_huge.html">Incredible Size of IPv6</a></li>
+                        <li><a href="https://subnettingpractice.com/twos.html">Exponent Practice</a></li>
+                        <li><a href="https://subnettingpractice.com/sixteens.html">Multiples of Sixteen </a></li>
+                        <li><a href="https://subnettingpractice.com/osi_layer.html">OSI Layer Practice</a></li>
+                        <li><a href="https://subnettingpractice.com/headers.html">IP Header Practice</a></li>
+                        <li><a href="https://subnettingpractice.com/ip_allocation.html">IPv4 v IPv6 Allocation</a></li>
+                        <li><a href="https://subnettingpractice.com/ccna_commands.html">Top CCNA Commands</a></li>
+                        <li><a href="https://subnettingpractice.com/certs.html">Networking Certificates</a></li>
+                        <li><a href="https://subnettingpractice.com/ccna_salary.html">CCNA Salary Report</a></li>
+                       <li><a href="https://subnettingpractice.com/ccna_resources.html">CCNA Resource List</a></li>
+                        <li><a href="https://subnettingpractice.com/jncia_ccna.html">JNCIA v CCNA</a></li>
+                        <li><a href="https://subnettingpractice.com/contact.html">Privacy Policy</a></li>
+			<li><a href="https://www.facebook.com/sharer.php?u=http://subnettingpractice.com/vlsm.html" target="_blank" class="share"><img src="./CIDR_VLSM Calculator_files/facebook.png" alt="Facebook"></a>
+<a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://subnettingpractice.com/vlsm.html" target="_blank" class="share"><img src="./CIDR_VLSM Calculator_files/linkedin.png" alt="LinkedIn"></a>
+<a href="https://twitter.com/share?url=http://subnettingpractice.com/vlsm.html&amp;text=A%20great%20VLSM%20calculator" target="_blank" class="share"><img src="./CIDR_VLSM Calculator_files/twitter.png" alt="Twitter"></a>
+</li>
+                </ul>
+
+<small>Copyright 2014 SubnettingPractice.com. All rights reserved</small>
+        <script type="text/javascript" src="./CIDR_VLSM Calculator_files/vlsm.js.download"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50427363-2', 'subnettingpractice.com');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+    
+
+
+<div id="pocket-extension-root"><div class="pocket-egasyq"></div></div><div id="pocket-extension-styles"><style data-emotion="pocket"></style></div></body></html>
